@@ -1,0 +1,26 @@
+{
+  "name": "serverless-appsync-plugin-v2-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "codegen": "graphql-codegen"
+  },
+  "author": "Benoît Bouré",
+  "license": "ISC",
+  "devDependencies": {
+    "@aws-appsync/eslint-plugin": "^1.6.0",
+    "@aws-appsync/utils": "^1.6.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@serverless/typescript": "^3.38.0",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/aws-lambda": "^8.10.131",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
+    "serverless": "^3.38.0",
+    "serverless-appsync-plugin": "^2.6.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
