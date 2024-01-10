@@ -1,0 +1,123 @@
+type Query {
+  getTask(id: ID!): Task!
+  listTasks(projectId: ID!, pagination: Pagination): TasksResult!
+  getProject(id: ID!): Project!
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(input: UpdateTaskInput!): Task!
+  deleteTask(id: ID!): Task!
+  createProject(input: CreateProjectInput!): Project!
+  updateProject(input: UpdateProjectInput!): Project!
+  deleteProject(id: ID!): Project!
+  addUserToProject(input: AddUserToProjectInput!): ProjectUser!
+}
+
+input Pagination {
+  limit: Int
+  nextToken: String
+  sortDirection: SortDirection
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+interface ITask {
+  id: ID!
+  title: String!
+  description: String!
+  priority: Int!
+  status: Status!
+  assignees: [ID!]!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Task implements ITask {
+  id: ID!
+  title: String!
+  description: String!
+  priority: Int!
+  status: Status!
+  project: Project!
+  assignees: [ID!]!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum Status {
+  TODO
+  DOING
+  DONE
+}
+
+input CreateTaskInput {
+  title: String!
+  description: String!
+  priority: Int!
+  status: Status!
+  projectId: ID!
+  assignees: [ID!]!
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  description: String
+  priority: Int
+  status: Status
+  assignees: [ID!]
+}
+
+input DeleteTaskInput {
+  id: ID!
+}
+
+interface IProject {
+  id: ID!
+  name: String!
+  description: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Project implements IProject {
+  id: ID!
+  name: String!
+  description: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input CreateProjectInput {
+  name: String!
+  description: String!
+}
+
+input UpdateProjectInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+type TasksResult {
+  items: [Task!]!
+  nextToken: String
+}
+
+interface IProjectUser {
+  createdAt: AWSDateTime!
+}
+
+type ProjectUser implements IProjectUser {
+  username: ID!
+  createdAt: AWSDateTime!
+}
+
+input AddUserToProjectInput {
+  projectId: ID!
+  username: ID!
+}
