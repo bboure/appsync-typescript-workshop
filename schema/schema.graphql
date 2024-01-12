@@ -6,12 +6,23 @@ type Query {
 
 type Mutation {
   createTask(input: CreateTaskInput!): Task!
+    @aws_auth(cognito_groups: ["Admins"])
   updateTask(input: UpdateTaskInput!): Task!
-  deleteTask(id: ID!): Task!
+    @aws_auth(cognito_groups: ["Admins"])
+  deleteTask(id: ID!): Task! @aws_auth(cognito_groups: ["Admins"])
   createProject(input: CreateProjectInput!): Project!
+    @aws_auth(cognito_groups: ["Admins"])
   updateProject(input: UpdateProjectInput!): Project!
-  deleteProject(id: ID!): Project!
+    @aws_auth(cognito_groups: ["Admins"])
+  deleteProject(id: ID!): Project! @aws_auth(cognito_groups: ["Admins"])
   addUserToProject(input: AddUserToProjectInput!): ProjectUser!
+    @aws_auth(cognito_groups: ["Admins"])
+}
+
+type Subscription {
+  onUpdateTask(id: ID!): Task @aws_subscribe(mutations: ["updateTask"])
+  onTaskAssigned(minPriority: Int): Task
+    @aws_subscribe(mutations: ["createTask"])
 }
 
 input Pagination {
